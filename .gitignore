@@ -172,3 +172,12 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+.pytest_cache/
+
+# Flask stuff:
+instance/
+.webassets-cache
