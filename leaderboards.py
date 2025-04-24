@@ -14,12 +14,18 @@ class LeaderboardDB:
             c = conn.cursor()
             c.execute('''CREATE TABLE IF NOT EXISTS leaderboard
                          (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                          rank INTEGER,
                           player_name TEXT NOT NULL,
                           score INTEGER NOT NULL,
                           date_achieved TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                           game_mode TEXT)''')
             conn.commit()
-
+    def get_rank(self, ranks):
+        for row in ranks:
+            rank = row[0]
+            rank = rank + 1
+            return rank
+            # Add logic to process or return the rank as needed
     def add_score(self, player_name, score, game_mode=None):
         with self.get_connection() as conn:
             c = conn.cursor()
@@ -39,7 +45,7 @@ class LeaderboardDB:
             rows = c.fetchall()
             # Convert Row objects to dictionaries
             return [dict(row) for row in rows]
-        
+
     def delete_score(self, score_id):
         with self.get_connection() as conn:
             c = conn.cursor()
@@ -48,4 +54,4 @@ class LeaderboardDB:
             return c.rowcount > 0  # Returns True if a row was deleted, False otherwise
 
 # Create a global instance of the database
-db = LeaderboardDB() 
+db = LeaderboardDB()
