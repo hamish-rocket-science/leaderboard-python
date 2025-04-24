@@ -32,10 +32,10 @@ class LeaderboardDB:
             conn.row_factory = sqlite3.Row  # This enables column name access
             c = conn.cursor()
             if game_mode:
-                c.execute("SELECT * FROM leaderboard WHERE game_mode = ? ORDER BY date_achieved DESC LIMIT ?",
+                c.execute("SELECT * FROM leaderboard WHERE game_mode = ? ORDER BY score DESC LIMIT ?",
                          (game_mode, limit))
             else:
-                c.execute("SELECT * FROM leaderboard ORDER BY date_achieved DESC LIMIT ?", (limit,))
+                c.execute("SELECT * FROM leaderboard ORDER BY score DESC LIMIT ?", (limit,))
             rows = c.fetchall()
             # Convert Row objects to dictionaries
             return [dict(row) for row in rows]
